@@ -2,6 +2,7 @@ import "../global.css";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { Text, View } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { ErrorBoundary } from "../components/ErrorBoundary";
 import { AuthProvider, useAuth } from "../lib/auth-context";
 import { isSupabaseConfigured } from "../lib/supabase";
@@ -31,15 +32,17 @@ function RootNavigator() {
 
 export default function RootLayout() {
   return (
-    <View className="flex-1 bg-background">
-      <ErrorBoundary>
-        <AuthProvider>
-          {!isSupabaseConfigured && <SetupBanner />}
-          <RootNavigator />
-        </AuthProvider>
-      </ErrorBoundary>
-      <StatusBar style="light" />
-    </View>
+    <SafeAreaProvider>
+      <View className="flex-1 bg-background">
+        <ErrorBoundary>
+          <AuthProvider>
+            {!isSupabaseConfigured && <SetupBanner />}
+            <RootNavigator />
+          </AuthProvider>
+        </ErrorBoundary>
+        <StatusBar style="light" />
+      </View>
+    </SafeAreaProvider>
   );
 }
 

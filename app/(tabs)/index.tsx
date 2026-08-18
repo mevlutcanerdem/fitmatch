@@ -1,3 +1,5 @@
+import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -15,9 +17,17 @@ export default function BugunScreen() {
   return (
     <SafeAreaView edges={["top"]} className="flex-1 bg-background">
       <ScrollView className="flex-1 px-5 pt-4" contentContainerStyle={{ gap: 16, paddingBottom: 24 }}>
-        <View>
-          <Text className="text-muted text-xs uppercase tracking-widest">Bugünkü Hareket</Text>
-          <Text className="text-foreground text-2xl font-bold mt-1">Merhaba, Ece</Text>
+        <View className="flex-row items-center justify-between">
+          <View>
+            <Text className="text-muted text-xs uppercase tracking-widest">Bugünkü Hareket</Text>
+            <Text className="text-foreground text-2xl font-bold mt-1">Merhaba, Ece</Text>
+          </View>
+          <Pressable
+            onPress={() => router.push("/profil")}
+            className="w-10 h-10 rounded-full bg-surface border border-border items-center justify-center"
+          >
+            <Ionicons name="person-outline" size={18} color="#eef2e4" />
+          </Pressable>
         </View>
 
         <View className="bg-surface border border-border rounded-card p-6 gap-1">
@@ -52,7 +62,10 @@ export default function BugunScreen() {
           </View>
         </View>
 
-        <Pressable className="bg-accent rounded-full py-4 items-center mt-2">
+        <Pressable
+          onPress={() => router.push("/kosu-kaydet")}
+          className="bg-accent rounded-full py-4 items-center mt-2"
+        >
           <Text className="text-accent-ink font-semibold text-base">Aktiviteyi Başlat</Text>
         </Pressable>
       </ScrollView>

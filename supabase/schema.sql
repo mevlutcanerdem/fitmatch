@@ -106,6 +106,20 @@ create policy "activities_select_all" on activities for select using (true);
 create policy "activities_insert_own" on activities for insert with check (auth.uid() = user_id);
 create policy "activities_delete_own" on activities for delete using (auth.uid() = user_id);
 
+-- Takip (Keşfet ekranındaki "Eşleş/Takip Et" için basit bağlantı kaydı)
+create table takipler (
+  takip_eden_id uuid not null references profiles(id) on delete cascade,
+  takip_edilen_id uuid not null references profiles(id) on delete cascade,
+  created_at timestamptz not null default now(),
+  primary key (takip_eden_id, takip_edilen_id)
+);
+
+alter table takipler enable row level security;
+
+create policy "takipler_select_all" on takipler for select using (true);
+create policy "takipler_insert_self" on takipler for insert with check (auth.uid() = takip_eden_id);
+create policy "takipler_delete_self" on takipler for delete using (auth.uid() = takip_eden_id);
+
 -- Yeni kullanıcı kaydolunca otomatik profil oluştur
 create function public.handle_new_user()
 returns trigger as $$

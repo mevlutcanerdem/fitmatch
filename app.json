@@ -12,7 +12,10 @@
     },
     "ios": {
       "supportsTablet": true,
-      "buildNumber": "1"
+      "buildNumber": "1",
+      "infoPlist": {
+        "NSMotionUsageDescription": "Bugünkü adım sayını göstermek için hareket verine ihtiyacımız var."
+      }
     },
     "android": {
       "versionCode": 1,

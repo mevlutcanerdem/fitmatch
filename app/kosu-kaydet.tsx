@@ -6,9 +6,9 @@ import { Pressable, Text, View } from "react-native";
 import { SafeScreen } from "../components/SafeScreen";
 import { useAuth } from "../lib/auth-context";
 import { isSupabaseConfigured, supabase } from "../lib/supabase";
+import { useProfile } from "../lib/use-profile";
 
 const MET_KOSU = 9.8;
-const VARSAYILAN_KILO_KG = 70;
 
 function haversineMetre(a: Location.LocationObjectCoords, b: Location.LocationObjectCoords) {
   const R = 6371000;
@@ -35,6 +35,7 @@ type Durum = "hazir" | "izin_bekleniyor" | "kayitta" | "bitti";
 
 export default function KosuKaydetScreen() {
   const { session } = useAuth();
+  const { profile } = useProfile();
   const [durum, setDurum] = useState<Durum>("hazir");
   const [mesafeM, setMesafeM] = useState(0);
   const [saniye, setSaniye] = useState(0);
@@ -87,7 +88,7 @@ export default function KosuKaydetScreen() {
   }
 
   const mesafeKm = mesafeM / 1000;
-  const kalori = Math.round((MET_KOSU * VARSAYILAN_KILO_KG * saniye) / 3600);
+  const kalori = Math.round((MET_KOSU * (profile.kilo_kg ?? 70) * saniye) / 3600);
   const tempoDk = mesafeKm > 0 ? saniye / 60 / mesafeKm : 0;
 
   async function kaydet() {

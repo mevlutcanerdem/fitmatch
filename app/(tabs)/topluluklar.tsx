@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
 import { router } from "expo-router";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
 import { SafeScreen } from "../../components/SafeScreen";
 import { useAuth } from "../../lib/auth-context";
@@ -97,9 +98,11 @@ export default function TopluluklarScreen() {
     setYenileniyor(false);
   }
 
-  useEffect(() => {
-    veriYukle();
-  }, [session?.user.id]);
+  useFocusEffect(
+    useCallback(() => {
+      veriYukle();
+    }, [session?.user.id])
+  );
 
   return (
     <SafeScreen className="flex-1 bg-background">
@@ -127,7 +130,11 @@ export default function TopluluklarScreen() {
 
         <View className="gap-3">
           {gruplar.map((g) => (
-            <View key={g.id} className="bg-surface border border-border rounded-card p-4 gap-2">
+            <Pressable
+              key={g.id}
+              onPress={() => canliVeri && router.push(`/grup/${g.id}`)}
+              className="bg-surface border border-border rounded-card p-4 gap-2"
+            >
               <View className="flex-row items-center justify-between">
                 <Text className="text-foreground font-semibold text-base">{g.ad}</Text>
                 <View className="bg-surface-2 rounded-full px-2 py-1">
@@ -144,7 +151,7 @@ export default function TopluluklarScreen() {
                   <Text className="text-muted text-xs">{g.km}</Text>
                 </View>
               </View>
-            </View>
+            </Pressable>
           ))}
 
           <Pressable

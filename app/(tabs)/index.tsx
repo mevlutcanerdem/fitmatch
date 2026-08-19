@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { Pressable, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeScreen } from "../../components/SafeScreen";
 
 const STEP_GOAL = 10000;
 const STEPS_TODAY = 7842;
@@ -15,7 +15,7 @@ const CALORIES = Math.round((MET.kosu * WEIGHT_KG * RUN_MINUTES) / 60);
 
 export default function BugunScreen() {
   return (
-    <SafeAreaView edges={["top"]} className="flex-1 bg-background">
+    <SafeScreen className="flex-1 bg-background">
       <ScrollView className="flex-1 px-5 pt-4" contentContainerStyle={{ gap: 16, paddingBottom: 24 }}>
         <View className="flex-row items-center justify-between">
           <View>
@@ -69,6 +69,6 @@ export default function BugunScreen() {
           <Text className="text-accent-ink font-semibold text-base">Aktiviteyi Başlat</Text>
         </Pressable>
       </ScrollView>
-    </SafeAreaView>
+    </SafeScreen>
   );
 }

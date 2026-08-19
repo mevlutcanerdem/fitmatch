@@ -1,7 +1,7 @@
 import { Link, router } from "expo-router";
 import { useState } from "react";
 import { KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeScreen } from "../../components/SafeScreen";
 import { useAuth } from "../../lib/auth-context";
 
 export default function GirisScreen() {
@@ -25,7 +25,7 @@ export default function GirisScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-background">
+    <SafeScreen className="flex-1 bg-background">
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         className="flex-1 justify-center px-6 gap-4"
@@ -75,6 +75,6 @@ export default function GirisScreen() {
           </Pressable>
         </Link>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </SafeScreen>
   );
 }

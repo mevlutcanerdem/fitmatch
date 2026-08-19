@@ -1,6 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Tabs } from "expo-router";
+import { Redirect, Tabs } from "expo-router";
 import { View } from "react-native";
+import { useAuth } from "../../lib/auth-context";
+import { isSupabaseConfigured } from "../../lib/supabase";
 
 type IconName = keyof typeof Ionicons.glyphMap;
 
@@ -19,6 +21,16 @@ function TabIcon({ name, focused }: { name: IconName; focused: boolean }) {
 }
 
 export default function TabsLayout() {
+  const { session, loading } = useAuth();
+
+  if (loading) {
+    return <View className="flex-1 bg-background" />;
+  }
+
+  if (isSupabaseConfigured && !session) {
+    return <Redirect href="/(auth)/giris" />;
+  }
+
   return (
     <Tabs
       screenOptions={{

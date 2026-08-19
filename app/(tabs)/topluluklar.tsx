@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeScreen } from "../../components/SafeScreen";
 import { useAuth } from "../../lib/auth-context";
 import { isSupabaseConfigured, supabase } from "../../lib/supabase";
 
@@ -102,7 +102,7 @@ export default function TopluluklarScreen() {
   }, [session?.user.id]);
 
   return (
-    <SafeAreaView edges={["top"]} className="flex-1 bg-background">
+    <SafeScreen className="flex-1 bg-background">
       <ScrollView
         className="flex-1 px-5 pt-4"
         contentContainerStyle={{ gap: 16, paddingBottom: 24 }}
@@ -188,6 +188,6 @@ export default function TopluluklarScreen() {
           </>
         )}
       </ScrollView>
-    </SafeAreaView>
+    </SafeScreen>
   );
 }

@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeScreen } from "../../components/SafeScreen";
 
 const KATEGORILER = ["Tümü", "Koşu", "Fitness", "Bisiklet"] as const;
 
@@ -33,7 +33,7 @@ export default function KesfetScreen() {
   const [aktif, setAktif] = useState<(typeof KATEGORILER)[number]>("Tümü");
 
   return (
-    <SafeAreaView edges={["top"]} className="flex-1 bg-background">
+    <SafeScreen className="flex-1 bg-background">
       <ScrollView className="flex-1 px-5 pt-4" contentContainerStyle={{ gap: 16, paddingBottom: 24 }}>
         <View>
           <Text className="text-muted text-xs uppercase tracking-widest">Hareketini Bul</Text>
@@ -107,6 +107,6 @@ export default function KesfetScreen() {
           ))}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </SafeScreen>
   );
 }

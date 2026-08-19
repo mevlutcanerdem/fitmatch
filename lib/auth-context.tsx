@@ -21,14 +21,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setLoading(false);
       return;
     }
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session);
-      setLoading(false);
-    });
+
+    supabase.auth
+      .getSession()
+      .then(({ data }) => {
+        setSession(data.session);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+
+    // getSession normalde anında döner; ağ sorunu ihtimaline karşı
+    // uygulamanın sonsuza kadar yükleniyor ekranında kalmasını engeller.
+    const guvenlikZamanlayicisi = setTimeout(() => setLoading(false), 5000);
+
     const { data: listener } = supabase.auth.onAuthStateChange((_event, newSession) => {
       setSession(newSession);
     });
-    return () => listener.subscription.unsubscribe();
+
+    return () => {
+      clearTimeout(guvenlikZamanlayicisi);
+      listener.subscription.unsubscribe();
+    };
   }, []);
 
   async function signIn(email: string, password: string) {

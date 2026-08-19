@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeScreen } from "../components/SafeScreen";
 import { useAuth } from "../lib/auth-context";
 import { isSupabaseConfigured, supabase } from "../lib/supabase";
 
@@ -59,7 +59,7 @@ export default function GrupOlusturScreen() {
   }
 
   return (
-    <SafeAreaView edges={["top"]} className="flex-1 bg-background">
+    <SafeScreen className="flex-1 bg-background">
       <View className="flex-row items-center gap-3 px-5 pt-4">
         <Pressable onPress={() => router.back()} className="w-9 h-9 items-center justify-center">
           <Ionicons name="chevron-back" size={22} color="#eef2e4" />
@@ -117,6 +117,6 @@ export default function GrupOlusturScreen() {
           </Text>
         </Pressable>
       </View>
-    </SafeAreaView>
+    </SafeScreen>
   );
 }
